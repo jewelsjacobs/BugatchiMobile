@@ -1,0 +1,10 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "listBugatchis",
+    "key" : {
+        "product_id" : { "S" : "${context.arguments.product_id}" }
+    },
+    "consistentRead" : true
+},
+"limit": $util.defaultIfNull(${ctx.args.limit}, 20),
+"nextToken": $util.toJson(${ctx.args.nextToken})

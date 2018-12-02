@@ -1,0 +1,161 @@
+service: BugatchiMobile
+
+package:
+  individually: true
+  excludeDevDependencies: false
+  exclude:
+    - node_modules/**
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-appsync-plugin
+  - serverless-appsync-offline
+  - aws-amplify-serverless-plugin
+  - serverless-offline
+
+provider:
+  name: aws
+  stage: dev
+  region: us-east-1
+  profile: serverless-admin
+  runtime: nodejs8.10
+  apiname: products
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource:
+        - "arn:aws:dynamodb:*:*"
+
+custom:
+  accountId: { Ref: AWS::AccountId }
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+#      noStart: true
+      convertEmptyValues: true
+    seed:
+      domain:
+        sources:
+          - table: bugatchi
+            sources: [./seed-data/Bugatchi.json]
+          - table: categories
+            sources: [./seed-data/Categories.json]
+  appsync-offline:
+    port: 62222
+    dynamodb:
+      client:
+        # if endpoint is provided, no local database server is started and and appsync connects to the endpoint - e.g. serverless-dynamodb-local
+        endpoint: "http://localhost:8000"
+        region: localhost
+        accessKeyId: a
+        secretAccessKey: a
+  amplify:
+    - filename: src/aws-exports.js
+      type: javascript
+      appClient: WebUserPoolClient
+    - filename: src/graphql/schema.json
+      type: schema.json
+    - filename: schema.graphql
+      type: graphql
+
+  appSync:
+    name: ${self:provider.apiname}
+    region: ${self:provider.region}
+    authenticationType: API_KEY
+    schema: schema.graphql # In case you want to change it
+    serviceRole: "AppSyncServiceRole"
+    dataSources:
+      - type: AMAZON_DYNAMODB
+        name: "BugatchiTableDS"
+        description: "DynamoDB Bugatchi Table"
+        config:
+          tableName: bugatchi
+          iamRoleStatements:
+            - Effect: Allow
+              Action:
+                - "dynamodb:Query"
+                - "dynamodb:Scan"
+                - "dynamodb:GetItem"
+                - "dynamodb:PutItem"
+                - "dynamodb:UpdateItem"
+                - "dynamodb:DeleteItem"
+              Resource:
+                - { Fn::GetAtt: [ BugatchiTable, Arn ]}
+                - { Fn::Join: [ '', [ { Fn::GetAtt: [ BugatchiTable, Arn ] }, '/*' ] ] }
+      - type: AMAZON_DYNAMODB
+        name: "CategoriesTableDS"
+        description: "DynamoDB Categories Table"
+        config:
+          tableName: categories
+          iamRoleStatements:
+            - Effect: Allow
+              Action:
+                - "dynamodb:Query"
+                - "dynamodb:Scan"
+                - "dynamodb:GetItem"
+                - "dynamodb:PutItem"
+                - "dynamodb:UpdateItem"
+                - "dynamodb:DeleteItem"
+              Resource:
+                - { Fn::GetAtt: [ CategoriesTable, Arn ]}
+                - { Fn::Join: [ '', [ { Fn::GetAtt: [ CategoriesTable, Arn ] }, '/*' ] ] }
+    mappingTemplates:
+      - dataSource: BugatchiTableDS
+        type: Query
+        field: listBugachis
+        request: "listbugachis-request.vtl"
+        response: "common-response.vtl"
+      - dataSource: BugatchiTableDS
+        type: Query
+        field: getBugachi
+        request: "getbugachi-request.vtl"
+        response: "common-response.vtl"
+      - dataSource: CategoriesTableDS
+        type: Query
+        field: listCategories
+        request: "listcategories-request.vtl"
+        response: "common-response.vtl"
+      - dataSource: CategoriesTableDS
+        type: Query
+        field: getCategories
+        request: "getcategories-request.vtl"
+        response: "common-response.vtl"
+
+resources:
+  Resources:
+    # DynamoDB Tables
+    CategoriesTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: "categories"
+        KeySchema:
+          - AttributeName: "id"
+            KeyType: "HASH"
+        AttributeDefinitions:
+          - AttributeName: "id"
+            AttributeType: "S"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10
+
+    BugatchiTable:
+      Type: "AWS::DynamoDB::Table"
+      Description: "Data Store for AWS AppSync Bugatchi Type"
+      Properties:
+        TableName: "bugatchi"
+        KeySchema:
+          - AttributeName: "product_id"
+            KeyType: "HASH"
+        AttributeDefinitions:
+          - AttributeName: "product_id"
+            AttributeType: "N"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10
+

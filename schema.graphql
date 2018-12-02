@@ -1,0 +1,151 @@
+﻿schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Bugachi {
+  long_description: String
+  manufacturer: String
+  name: String!
+  pixel: String
+  primary_category: String
+  product_id: Int!
+  product_url: String
+  productimage_url: String
+  retail_price: String
+  sale_price: String
+  secondary_category: String
+  shipping_availability: String
+  shipping_information: String
+  sku_number: Int
+  upc: Int
+}
+
+type BugachiConnection {
+  items: [Bugachi]
+  nextToken: String
+}
+
+type Categories {
+  category: String!
+  id: String!
+  subcategories: [String]
+}
+
+type CategoriesConnection {
+  items: [Categories]
+  nextToken: String
+}
+
+type Mutation {
+  createBugachi(input: CreateBugachiInput!): Bugachi
+  createCategories(input: CreateCategoriesInput!): Categories
+  deleteBugachi(input: DeleteBugachiInput!): Bugachi
+  deleteCategories(input: DeleteCategoriesInput!): Categories
+  updateBugachi(input: UpdateBugachiInput!): Bugachi
+  updateCategories(input: UpdateCategoriesInput!): Categories
+}
+
+type Query {
+  getBugachi(product_id: Int!): Bugachi
+  getCategories(id: String!): Categories
+  listBugachis(filter: TableBugachiFilterInput, limit: Int, nextToken: String): BugachiConnection
+  listCategories(filter: TableCategoriesFilterInput, limit: Int, nextToken: String): CategoriesConnection
+}
+
+type Subscription {
+  onCreateBugachi(product_id: Int): Bugachi @aws_subscribe(mutations : ["createBugachi"])
+  onCreateCategories(id: String): Categories @aws_subscribe(mutations : ["createCategories"])
+  onDeleteBugachi(product_id: Int): Bugachi @aws_subscribe(mutations : ["deleteBugachi"])
+  onDeleteCategories(id: String): Categories @aws_subscribe(mutations : ["deleteCategories"])
+  onUpdateBugachi(product_id: Int): Bugachi @aws_subscribe(mutations : ["updateBugachi"])
+  onUpdateCategories(id: String): Categories @aws_subscribe(mutations : ["updateCategories"])
+}
+
+input CreateBugachiInput {
+  product_id: Int!
+}
+
+input CreateCategoriesInput {
+  id: String!
+}
+
+input DeleteBugachiInput {
+  product_id: Int!
+}
+
+input DeleteCategoriesInput {
+  id: String!
+}
+
+input TableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input TableBugachiFilterInput {
+  product_id: TableIntFilterInput
+}
+
+input TableCategoriesFilterInput {
+  id: TableStringFilterInput
+}
+
+input TableFloatFilterInput {
+  between: [Float]
+  contains: Float
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+  notContains: Float
+}
+
+input TableIDFilterInput {
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+}
+
+input TableIntFilterInput {
+  between: [Int]
+  contains: Int
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+  notContains: Int
+}
+
+input TableStringFilterInput {
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+}
+
+input UpdateBugachiInput {
+  product_id: Int!
+}
+
+input UpdateCategoriesInput {
+  id: String!
+}

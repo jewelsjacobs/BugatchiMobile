@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1",
+    "category": "Clothing",
+    "subcategories": [
+      "Outerwear",
+      "Shirts & Tops",
+      "Shorts",
+      "Underwear & Socks"
+    ]
+  },
+  {
+    "id": "2",
+    "category": "Handbags, Wallets & Cases",
+    "subcategories": [
+      "Handbags",
+      "Wallets & Money Clips"
+    ]
+  },
+  {
+    "id": "3",
+    "category": "Clothing Accessories",
+    "subcategories": [
+      "Belts",
+      "Cufflinks",
+      "Handkerchiefs"
+    ]
+  },
+  {
+    "id": "4",
+    "category": "Shoes",
+    "subcategories": null
+  }
+]
