@@ -24,7 +24,8 @@
     "react-native-sentry": "^0.39.1",
     "react-navigation": "^2.18.2",
     "sentry-expo": "^1.10.0",
-    "serverless-appsync-plugin": "^1.0.9"
+    "serverless-appsync-plugin": "^1.0.9",
+    "serverless-pseudo-parameters": "^2.2.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",

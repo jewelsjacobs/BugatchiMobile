@@ -6,7 +6,8 @@ package:
   exclude:
     - node_modules/**
 
-plugins:
+plugins
+  - serverless-pseudo-parameters
   - serverless-dynamodb-local
   - serverless-appsync-plugin
   - serverless-appsync-offline
@@ -50,7 +51,6 @@ custom:
     port: 62222
     dynamodb:
       client:
-        # if endpoint is provided, no local database server is started and and appsync connects to the endpoint - e.g. serverless-dynamodb-local
         endpoint: "http://localhost:8000"
         region: localhost
         accessKeyId: a
