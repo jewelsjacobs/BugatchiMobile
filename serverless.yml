@@ -68,7 +68,7 @@ custom:
     name: ${self:provider.apiname}
     region: ${self:provider.region}
     authenticationType: API_KEY
-    schema: schema.graphql # In case you want to change it
+    schema: schema.graphql
     serviceRole: "AppSyncServiceRole"
     dataSources:
       - type: AMAZON_DYNAMODB
