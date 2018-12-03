@@ -56,7 +56,6 @@ buck-out/
 *.jsbundle
 
 node_modules/**/*
-.expo/*
 npm-debug.*
 *.jks
 *.p12
@@ -80,6 +79,5 @@ yarn-error.log*
 /.amplifyrc
 /.buckconfig
 /.graphqlconfig.yml
-/app.json
 /graphql.schema.json
 /src/aws-exports.js

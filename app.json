@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "mobile",
+    "description": "A very interesting project.",
+    "slug": "mobile",
+    "privacy": "public",
+    "sdkVersion": "31.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    }
+  },
+  "hooks": {
+    "postPublish": [
+      {
+        "file": "sentry-expo/upload-sourcemaps",
+        "config": {
+          "organization": "new-era-code-llc",
+          "project": "BugatchiMobile",
+          "authToken": "749107f2a2bb4720a7201e096faa7cf6fe7f6474bea24e2a9238ad2fea2fcd55"
+        }
+      }
+    ]
+  }
+}
