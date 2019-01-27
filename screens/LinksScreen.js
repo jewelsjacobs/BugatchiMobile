@@ -9,7 +9,7 @@ export default class LinksScreen extends React.Component {
   };
 
   state = {
-    categories: []
+    categoryList: []
   };
 
   async componentDidMount() {
@@ -17,7 +17,7 @@ export default class LinksScreen extends React.Component {
       const categories = await API.graphql(graphqlOperation(queries.listCategories))
       console.log('categories:', categories);
       this.setState({
-        categories: categories.data.listCategories.items
+        categoryList: categories.data.listCategories.items
       })
     } catch (err) {
       console.log('error fetching categories...', err)
@@ -27,9 +27,9 @@ export default class LinksScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-      {this.state.categories.map((category, index) => (
+      {this.state.categoryList.map((categoryItem, index) => (
           <View key={index}>
-            <Text>{category.category}</Text>
+            <Text>{categoryItem.categories}</Text>
           </View>
         ))}
       </ScrollView>

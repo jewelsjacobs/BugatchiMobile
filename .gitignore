@@ -80,4 +80,4 @@ yarn-error.log*
 /.buckconfig
 /.graphqlconfig.yml
 /graphql.schema.json
-/src/aws-exports.js
+/BugatchiMobile/src/aws-exports_bk.js

@@ -1,58 +1,107 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
-export const getBugachi = `query GetBugachi($product_id: Int!) {
-  getBugachi(product_id: $product_id) {
+export const getBugatchi = `query GetBugatchi($product_id: String!, $category: String!) {
+  getBugatchi(product_id: $product_id, category: $category) {
     product_id
-    sku_number
+    category
+    subcategory
+    description
+    manufacturer_part_number
     name
-    product_url
     pixel
-    sale_price
-    retail_price
-    long_description
+    product_url
     productimage_url
-    primary_category
-    secondary_category
-    shipping_availability
-    shipping_information
+    retail_price
+    sale_price
+    shipping_info
+    sku_number
     upc
-    manufacturer
   }
 }
 `;
-export const listBugachis = `query ListBugachis(
-  $filter: TableBugachiFilterInput
+export const listBugatchis = `query ListBugatchis(
+  $filter: TableBugatchiFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listBugachis(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listBugatchis(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       product_id
-      sku_number
+      category
+      subcategory
+      description
+      manufacturer_part_number
       name
-      product_url
       pixel
-      sale_price
-      retail_price
-      long_description
+      product_url
       productimage_url
-      primary_category
-      secondary_category
-      shipping_availability
-      shipping_information
+      retail_price
+      sale_price
+      shipping_info
+      sku_number
       upc
-      manufacturer
     }
     nextToken
   }
 }
 `;
-export const getCategories = `query GetCategories($id: String!) {
-  getCategories(id: $id) {
-    id
+export const queryBugatchisByCategoryIndex = `query QueryBugatchisByCategoryIndex(
+  $category: String!
+  $subcategory: String
+  $first: Int
+  $after: String
+) {
+  queryBugatchisByCategoryIndex(
+    category: $category
+    subcategory: $subcategory
+    first: $first
+    after: $after
+  ) {
+    items {
+      product_id
+      category
+      subcategory
+      description
+      manufacturer_part_number
+      name
+      pixel
+      product_url
+      productimage_url
+      retail_price
+      sale_price
+      shipping_info
+      sku_number
+      upc
+    }
+    nextToken
+  }
+}
+`;
+export const getSubcategories = `query GetSubcategories($subcategory: String!, $category: String!) {
+  getSubcategories(subcategory: $subcategory, category: $category) {
     category
-    subcategories
+    subcategory
+  }
+}
+`;
+export const listSubcategories = `query ListSubcategories(
+  $filter: TableSubcategoriesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSubcategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      category
+      subcategory
+    }
+    nextToken
+  }
+}
+`;
+export const getCategories = `query GetCategories($categories: String!) {
+  getCategories(categories: $categories) {
+    categories
   }
 }
 `;
@@ -63,9 +112,7 @@ export const listCategories = `query ListCategories(
 ) {
   listCategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      id
-      category
-      subcategories
+      categories
     }
     nextToken
   }

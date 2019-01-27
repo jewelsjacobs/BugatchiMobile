@@ -1,0 +1,58 @@
+[
+  {
+    "category": "Clothing",
+    "subcategory": "Underwear & Socks"
+  },
+  {
+    "category": "Clothing",
+    "subcategory": "Pants"
+  },
+  {
+    "category": "Handbags, Wallets & Cases",
+    "subcategory": "Wallets & Money Clips"
+  },
+  {
+    "category": "Clothing",
+    "subcategory": "Suits"
+  },
+  {
+    "category": "Handbags, Wallets & Cases",
+    "subcategory": "Handbags"
+  },
+  {
+    "category": "Clothing",
+    "subcategory": "Shirts & Tops"
+  },
+  {
+    "category": "Clothing",
+    "subcategory": "Swimwear"
+  },
+  {
+    "category": "Clothing Accessories",
+    "subcategory": "Belts"
+  },
+  {
+    "category": "Clothing Accessories",
+    "subcategory": "Cufflinks"
+  },
+  {
+    "category": "Clothing",
+    "subcategory": "Shorts"
+  },
+  {
+    "category": "Clothing",
+    "subcategory": "Outerwear"
+  },
+  {
+    "category": "Clothing Accessories",
+    "subcategory": "Handkerchiefs"
+  },
+  {
+    "category": "Shoes",
+    "subcategory": "Shoes"
+  },
+  {
+    "category": "Clothing Accessories",
+    "subcategory": "Neckties"
+  }
+]

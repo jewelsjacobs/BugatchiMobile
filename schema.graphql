@@ -4,33 +4,30 @@
   subscription: Subscription
 }
 
-type Bugachi {
-  long_description: String
-  manufacturer: String
-  name: String!
+type Bugatchi {
+  category: String!
+  description: String
+  manufacturer_part_number: String
+  name: String
   pixel: String
-  primary_category: String
-  product_id: Int!
+  product_id: String!
   product_url: String
   productimage_url: String
   retail_price: String
   sale_price: String
-  secondary_category: String
-  shipping_availability: String
-  shipping_information: String
-  sku_number: Int
-  upc: Int
+  shipping_info: String
+  sku_number: String
+  subcategory: String
+  upc: String
 }
 
-type BugachiConnection {
-  items: [Bugachi]
+type BugatchiConnection {
+  items: [Bugatchi]
   nextToken: String
 }
 
 type Categories {
-  category: String!
-  id: String!
-  subcategories: [String]
+  categories: String!
 }
 
 type CategoriesConnection {
@@ -39,44 +36,87 @@ type CategoriesConnection {
 }
 
 type Mutation {
-  createBugachi(input: CreateBugachiInput!): Bugachi
+  createBugatchi(input: CreateBugatchiInput!): Bugatchi
   createCategories(input: CreateCategoriesInput!): Categories
-  deleteBugachi(input: DeleteBugachiInput!): Bugachi
+  createSubcategories(input: CreateSubcategoriesInput!): Subcategories
+  deleteBugatchi(input: DeleteBugatchiInput!): Bugatchi
   deleteCategories(input: DeleteCategoriesInput!): Categories
-  updateBugachi(input: UpdateBugachiInput!): Bugachi
+  deleteSubcategories(input: DeleteSubcategoriesInput!): Subcategories
+  updateBugatchi(input: UpdateBugatchiInput!): Bugatchi
   updateCategories(input: UpdateCategoriesInput!): Categories
+  updateSubcategories(input: UpdateSubcategoriesInput!): Subcategories
 }
 
 type Query {
-  getBugachi(product_id: Int!): Bugachi
-  getCategories(id: String!): Categories
-  listBugachis(filter: TableBugachiFilterInput, limit: Int, nextToken: String): BugachiConnection
+  getBugatchi(category: String!, product_id: String!): Bugatchi
+  getCategories(categories: String!): Categories
+  getSubcategories(category: String!, subcategory: String!): Subcategories
+  listBugatchis(filter: TableBugatchiFilterInput, limit: Int, nextToken: String): BugatchiConnection
   listCategories(filter: TableCategoriesFilterInput, limit: Int, nextToken: String): CategoriesConnection
+  listSubcategories(filter: TableSubcategoriesFilterInput, limit: Int, nextToken: String): SubcategoriesConnection
+  queryBugatchisByCategoryIndex(after: String, category: String!, first: Int, subcategory: String): BugatchiConnection
+}
+
+type Subcategories {
+  category: String!
+  subcategory: String!
+}
+
+type SubcategoriesConnection {
+  items: [Subcategories]
+  nextToken: String
 }
 
 type Subscription {
-  onCreateBugachi(product_id: Int): Bugachi @aws_subscribe(mutations : ["createBugachi"])
-  onCreateCategories(id: String): Categories @aws_subscribe(mutations : ["createCategories"])
-  onDeleteBugachi(product_id: Int): Bugachi @aws_subscribe(mutations : ["deleteBugachi"])
-  onDeleteCategories(id: String): Categories @aws_subscribe(mutations : ["deleteCategories"])
-  onUpdateBugachi(product_id: Int): Bugachi @aws_subscribe(mutations : ["updateBugachi"])
-  onUpdateCategories(id: String): Categories @aws_subscribe(mutations : ["updateCategories"])
+  onCreateBugatchi(category: String, description: String, manufacturer_part_number: String, product_id: String, subcategory: String): Bugatchi @aws_subscribe(mutations : ["createBugatchi"])
+  onCreateCategories(categories: String): Categories @aws_subscribe(mutations : ["createCategories"])
+  onCreateSubcategories(category: String, subcategory: String): Subcategories @aws_subscribe(mutations : ["createSubcategories"])
+  onDeleteBugatchi(category: String, description: String, manufacturer_part_number: String, product_id: String, subcategory: String): Bugatchi @aws_subscribe(mutations : ["deleteBugatchi"])
+  onDeleteCategories(categories: String): Categories @aws_subscribe(mutations : ["deleteCategories"])
+  onDeleteSubcategories(category: String, subcategory: String): Subcategories @aws_subscribe(mutations : ["deleteSubcategories"])
+  onUpdateBugatchi(category: String, description: String, manufacturer_part_number: String, product_id: String, subcategory: String): Bugatchi @aws_subscribe(mutations : ["updateBugatchi"])
+  onUpdateCategories(categories: String): Categories @aws_subscribe(mutations : ["updateCategories"])
+  onUpdateSubcategories(category: String, subcategory: String): Subcategories @aws_subscribe(mutations : ["updateSubcategories"])
 }
 
-input CreateBugachiInput {
-  product_id: Int!
+input CreateBugatchiInput {
+  category: String!
+  description: String
+  manufacturer_part_number: String
+  name: String
+  pixel: String
+  product_id: String!
+  product_url: String
+  productimage_url: String
+  retail_price: String
+  sale_price: String
+  shipping_info: String
+  sku_number: String
+  subcategory: String
+  upc: String
 }
 
 input CreateCategoriesInput {
-  id: String!
+  categories: String!
 }
 
-input DeleteBugachiInput {
-  product_id: Int!
+input CreateSubcategoriesInput {
+  category: String!
+  subcategory: String!
+}
+
+input DeleteBugatchiInput {
+  category: String!
+  product_id: String!
 }
 
 input DeleteCategoriesInput {
-  id: String!
+  categories: String!
+}
+
+input DeleteSubcategoriesInput {
+  category: String!
+  subcategory: String!
 }
 
 input TableBooleanFilterInput {
@@ -84,12 +124,25 @@ input TableBooleanFilterInput {
   ne: Boolean
 }
 
-input TableBugachiFilterInput {
-  product_id: TableIntFilterInput
+input TableBugatchiFilterInput {
+  category: TableStringFilterInput
+  description: TableStringFilterInput
+  manufacturer_part_number: TableStringFilterInput
+  name: TableStringFilterInput
+  pixel: TableStringFilterInput
+  product_id: TableStringFilterInput
+  product_url: TableStringFilterInput
+  productimage_url: TableStringFilterInput
+  retail_price: TableStringFilterInput
+  sale_price: TableStringFilterInput
+  shipping_info: TableStringFilterInput
+  sku_number: TableStringFilterInput
+  subcategory: TableStringFilterInput
+  upc: TableStringFilterInput
 }
 
 input TableCategoriesFilterInput {
-  id: TableStringFilterInput
+  categories: TableStringFilterInput
 }
 
 input TableFloatFilterInput {
@@ -142,10 +195,33 @@ input TableStringFilterInput {
   notContains: String
 }
 
-input UpdateBugachiInput {
-  product_id: Int!
+input TableSubcategoriesFilterInput {
+  category: TableStringFilterInput
+  subcategory: TableStringFilterInput
+}
+
+input UpdateBugatchiInput {
+  category: String!
+  description: String
+  manufacturer_part_number: String
+  name: String
+  pixel: String
+  product_id: String!
+  product_url: String
+  productimage_url: String
+  retail_price: String
+  sale_price: String
+  shipping_info: String
+  sku_number: String
+  subcategory: String
+  upc: String
 }
 
 input UpdateCategoriesInput {
-  id: String!
+  categories: String!
+}
+
+input UpdateSubcategoriesInput {
+  category: String!
+  subcategory: String!
 }

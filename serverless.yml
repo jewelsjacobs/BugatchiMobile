@@ -47,6 +47,20 @@ custom:
             sources: [./seed-data/Bugatchi.json]
           - table: categories
             sources: [./seed-data/Categories.json]
+          - table: subcategories
+            sources: [./seed-data/Subcategories.json]
+  capacities:
+    - table: BugatchiTable  # DynamoDB Resource
+      index:              # List or single index name
+        - CategoryIndex
+      read:
+        minimum: 25        # Minimum read capacity
+        maximum: 1000     # Maximum read capacity
+        usage: 0.75       # Targeted usage percentage
+      write:
+        minimum: 75       # Minimum write capacity
+        maximum: 200      # Maximum write capacity
+        usage: 0.5        # Targeted usage percentage
   appsync-offline:
     port: 62222
     dynamodb:
@@ -105,12 +119,24 @@ custom:
               Resource:
                 - { Fn::GetAtt: [ CategoriesTable, Arn ]}
                 - { Fn::Join: [ '', [ { Fn::GetAtt: [ CategoriesTable, Arn ] }, '/*' ] ] }
+      - type: AMAZON_DYNAMODB
+        name: "SubcategoriesTableDS"
+        description: "DynamoDB Subcategories Table"
+        config:
+          tableName: subcategories
+          iamRoleStatements:
+            - Effect: Allow
+              Action:
+                - "dynamodb:Query"
+                - "dynamodb:Scan"
+                - "dynamodb:GetItem"
+                - "dynamodb:PutItem"
+                - "dynamodb:UpdateItem"
+                - "dynamodb:DeleteItem"
+              Resource:
+                - { Fn::GetAtt: [ Subcategories, Arn ]}
+                - { Fn::Join: [ '', [ { Fn::GetAtt: [ Subcategories, Arn ] }, '/*' ] ] }
     mappingTemplates:
-      - dataSource: BugatchiTableDS
-        type: Query
-        field: listBugachis
-        request: "listbugachis-request.vtl"
-        response: "common-response.vtl"
       - dataSource: BugatchiTableDS
         type: Query
         field: getBugachi
@@ -118,32 +144,38 @@ custom:
         response: "common-response.vtl"
       - dataSource: CategoriesTableDS
         type: Query
-        field: listCategories
-        request: "listcategories-request.vtl"
+        field: getCategories
+        request: "getcategories-request.vtl"
+        response: "common-response.vtl"
+      - dataSource: SubcategoriesTableDS
+        type: Query
+        field: getSubcategories
+        request: "getsubcategories-request.vtl"
+        response: "common-response.vtl"
+      - dataSource: BugatchiTableDS
+        type: Query
+        field: listBugatchis
+        request: "listbugatchis-request.vtl"
         response: "common-response.vtl"
       - dataSource: CategoriesTableDS
         type: Query
-        field: getCategories
-        request: "getcategories-request.vtl"
+        field: listCategories
+        request: "listcategories-request.vtl"
+        response: "common-response.vtl"
+      - dataSource: SubcategoriesTableDS
+        type: Query
+        field: listSubcategories
+        request: "listsubcategories-request.vtl"
+        response: "common-response.vtl"
+      - dataSource: BugatchiTableDS
+        type: Query
+        field: queryBugatchiByCategoryIndex
+        request: "querybugatchibycategoryindex-request.vtl"
         response: "common-response.vtl"
 
 resources:
   Resources:
     # DynamoDB Tables
-    CategoriesTable:
-      Type: "AWS::DynamoDB::Table"
-      Properties:
-        TableName: "categories"
-        KeySchema:
-          - AttributeName: "id"
-            KeyType: "HASH"
-        AttributeDefinitions:
-          - AttributeName: "id"
-            AttributeType: "S"
-        ProvisionedThroughput:
-          ReadCapacityUnits: 10
-          WriteCapacityUnits: 10
-
     BugatchiTable:
       Type: "AWS::DynamoDB::Table"
       Description: "Data Store for AWS AppSync Bugatchi Type"
@@ -152,10 +184,68 @@ resources:
         KeySchema:
           - AttributeName: "product_id"
             KeyType: "HASH"
+          - AttributeName: "category"
+            KeyType: "RANGE"
         AttributeDefinitions:
           - AttributeName: "product_id"
-            AttributeType: "N"
+            AttributeType: "S"
+          - AttributeName: "category"
+            AttributeType: "S"
+          - AttributeName: "subcategory"
+            AttributeType: "S"
         ProvisionedThroughput:
-          ReadCapacityUnits: 10
-          WriteCapacityUnits: 10
+          ReadCapacityUnits: 25
+          WriteCapacityUnits: 75
+        GlobalSecondaryIndexes:
+          - IndexName: "CategoryIndex"
+            KeySchema:
+              - AttributeName: "category"
+                KeyType: "HASH"
+              - AttributeName: "subcategory"
+                KeyType: "RANGE"
+            Projection:
+              ProjectionType: "INCLUDE"
+              NonKeyAttributes:
+                - "name"
+                - "description"
+                - "sale_price"
+                - "retail_price"
+                - "productimage_url"
+            ProvisionedThroughput:
+              ReadCapacityUnits: 25
+              WriteCapacityUnits: 75
+
+    SubCategoriesTable:
+      Type: "AWS::DynamoDB::Table"
+      Description: "Data Store for AWS AppSync Subcategories Type"
+      Properties:
+        TableName: "subcategories"
+        KeySchema:
+          - AttributeName: "subcategory"
+            KeyType: "HASH"
+          - AttributeName: "category"
+            KeyType: "RANGE"
+        AttributeDefinitions:
+          - AttributeName: "subcategory"
+            AttributeType: "S"
+          - AttributeName: "category"
+            AttributeType: "S"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 25
+          WriteCapacityUnits: 25
+
+    CategoriesTable:
+      Type: "AWS::DynamoDB::Table"
+      Description: "Data Store for AWS AppSync Categories Type"
+      Properties:
+        TableName: "categories"
+        KeySchema:
+          - AttributeName: "categories"
+            KeyType: "HASH"
+        AttributeDefinitions:
+          - AttributeName: "categories"
+            AttributeType: "S"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 25
+          WriteCapacityUnits: 25
 

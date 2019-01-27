@@ -1,87 +1,135 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
-export const onCreateBugachi = `subscription OnCreateBugachi($product_id: Int) {
-  onCreateBugachi(product_id: $product_id) {
+export const onCreateBugatchi = `subscription OnCreateBugatchi(
+  $product_id: String
+  $category: String
+  $subcategory: String
+  $description: String
+  $manufacturer_part_number: String
+) {
+  onCreateBugatchi(
+    product_id: $product_id
+    category: $category
+    subcategory: $subcategory
+    description: $description
+    manufacturer_part_number: $manufacturer_part_number
+  ) {
     product_id
-    sku_number
+    category
+    subcategory
+    description
+    manufacturer_part_number
     name
-    product_url
     pixel
-    sale_price
-    retail_price
-    long_description
+    product_url
     productimage_url
-    primary_category
-    secondary_category
-    shipping_availability
-    shipping_information
+    retail_price
+    sale_price
+    shipping_info
+    sku_number
     upc
-    manufacturer
   }
 }
 `;
-export const onUpdateBugachi = `subscription OnUpdateBugachi($product_id: Int) {
-  onUpdateBugachi(product_id: $product_id) {
+export const onUpdateBugatchi = `subscription OnUpdateBugatchi(
+  $category: String
+  $product_id: String
+  $subcategory: String
+  $description: String
+  $manufacturer_part_number: String
+) {
+  onUpdateBugatchi(
+    category: $category
+    product_id: $product_id
+    subcategory: $subcategory
+    description: $description
+    manufacturer_part_number: $manufacturer_part_number
+  ) {
     product_id
-    sku_number
+    category
+    subcategory
+    description
+    manufacturer_part_number
     name
-    product_url
     pixel
-    sale_price
-    retail_price
-    long_description
+    product_url
     productimage_url
-    primary_category
-    secondary_category
-    shipping_availability
-    shipping_information
+    retail_price
+    sale_price
+    shipping_info
+    sku_number
     upc
-    manufacturer
   }
 }
 `;
-export const onDeleteBugachi = `subscription OnDeleteBugachi($product_id: Int) {
-  onDeleteBugachi(product_id: $product_id) {
+export const onDeleteBugatchi = `subscription OnDeleteBugatchi(
+  $product_id: String
+  $category: String
+  $subcategory: String
+  $description: String
+  $manufacturer_part_number: String
+) {
+  onDeleteBugatchi(
+    product_id: $product_id
+    category: $category
+    subcategory: $subcategory
+    description: $description
+    manufacturer_part_number: $manufacturer_part_number
+  ) {
     product_id
-    sku_number
+    category
+    subcategory
+    description
+    manufacturer_part_number
     name
-    product_url
     pixel
-    sale_price
-    retail_price
-    long_description
+    product_url
     productimage_url
-    primary_category
-    secondary_category
-    shipping_availability
-    shipping_information
+    retail_price
+    sale_price
+    shipping_info
+    sku_number
     upc
-    manufacturer
   }
 }
 `;
-export const onCreateCategories = `subscription OnCreateCategories($id: String) {
-  onCreateCategories(id: $id) {
-    id
+export const onCreateSubcategories = `subscription OnCreateSubcategories($category: String, $subcategory: String) {
+  onCreateSubcategories(category: $category, subcategory: $subcategory) {
     category
-    subcategories
+    subcategory
   }
 }
 `;
-export const onUpdateCategories = `subscription OnUpdateCategories($id: String) {
-  onUpdateCategories(id: $id) {
-    id
+export const onUpdateSubcategories = `subscription OnUpdateSubcategories($category: String, $subcategory: String) {
+  onUpdateSubcategories(category: $category, subcategory: $subcategory) {
     category
-    subcategories
+    subcategory
   }
 }
 `;
-export const onDeleteCategories = `subscription OnDeleteCategories($id: String) {
-  onDeleteCategories(id: $id) {
-    id
+export const onDeleteSubcategories = `subscription OnDeleteSubcategories($category: String, $subcategory: String) {
+  onDeleteSubcategories(category: $category, subcategory: $subcategory) {
     category
-    subcategories
+    subcategory
+  }
+}
+`;
+export const onCreateCategories = `subscription OnCreateCategories($categories: String) {
+  onCreateCategories(categories: $categories) {
+    categories
+  }
+}
+`;
+export const onUpdateCategories = `subscription OnUpdateCategories($categories: String) {
+  onUpdateCategories(categories: $categories) {
+    categories
+  }
+}
+`;
+export const onDeleteCategories = `subscription OnDeleteCategories($categories: String) {
+  onDeleteCategories(categories: $categories) {
+    categories
   }
 }
 `;

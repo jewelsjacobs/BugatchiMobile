@@ -1,34 +1,14 @@
 [
   {
-    "id": "1",
-    "category": "Clothing",
-    "subcategories": [
-      "Outerwear",
-      "Shirts & Tops",
-      "Shorts",
-      "Underwear & Socks"
-    ]
+    "categories": "Handbags, Wallets & Cases"
   },
   {
-    "id": "2",
-    "category": "Handbags, Wallets & Cases",
-    "subcategories": [
-      "Handbags",
-      "Wallets & Money Clips"
-    ]
+    "categories": "Clothing Accessories"
   },
   {
-    "id": "3",
-    "category": "Clothing Accessories",
-    "subcategories": [
-      "Belts",
-      "Cufflinks",
-      "Handkerchiefs"
-    ]
+    "categories": "Clothing"
   },
   {
-    "id": "4",
-    "category": "Shoes",
-    "subcategories": null
+    "categories": "Shoes"
   }
 ]

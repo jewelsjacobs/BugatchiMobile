@@ -1,0 +1,14 @@
+{
+  "version": "2017-02-28",
+  "operation": "Query",
+  "query": {
+    #if( ${$context.args.subcategory} ) "expression": "#category = :category and #subcategory = :subcategory" #else "expression": "#category = :category" #end,
+    #if( ${$context.args.subcategory} ) "expressionNames": { "#category": "category", "#subcategory": "subcategory" } #else "expressionNames": { "#category": "category" } #end,
+    #if( ${$context.args.subcategory} ) "expressionValues": { ":category": $util.dynamodb.toDynamoDBJson($ctx.args.category), ":subcategory:" $util.dynamodb.toDynamoDBJson($ctx.args.subcategory) } #else "expressionValues": { ":category": $util.dynamodb.toDynamoDBJson($ctx.args.category) } #end,
+  },
+  "index": "CategoryIndex",
+  "limit": $util.defaultIfNull($ctx.args.first, 20),
+  "nextToken": $util.toJson($util.defaultIfNullOrEmpty($ctx.args.after, null)),
+  "scanIndexForward": true,
+  "select": "ALL_PROJECTED_ATTRIBUTES",
+}

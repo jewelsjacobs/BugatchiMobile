@@ -13,7 +13,7 @@
   "version": "2017-02-28",
   "operation": "GetItem",
   "key": {
-    "product_id": $util.dynamodb.toDynamoDBJson($ctx.args.product_id),
+    "subcategory": $util.dynamodb.toDynamoDBJson($ctx.args.subcategory),
     "category": $util.dynamodb.toDynamoDBJson($ctx.args.category),
   },
 }

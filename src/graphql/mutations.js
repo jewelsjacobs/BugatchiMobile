@@ -1,87 +1,99 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
-export const createBugachi = `mutation CreateBugachi($input: CreateBugachiInput!) {
-  createBugachi(input: $input) {
+export const createBugatchi = `mutation CreateBugatchi($input: CreateBugatchiInput!) {
+  createBugatchi(input: $input) {
     product_id
-    sku_number
+    category
+    subcategory
+    description
+    manufacturer_part_number
     name
-    product_url
     pixel
-    sale_price
-    retail_price
-    long_description
+    product_url
     productimage_url
-    primary_category
-    secondary_category
-    shipping_availability
-    shipping_information
+    retail_price
+    sale_price
+    shipping_info
+    sku_number
     upc
-    manufacturer
   }
 }
 `;
-export const updateBugachi = `mutation UpdateBugachi($input: UpdateBugachiInput!) {
-  updateBugachi(input: $input) {
+export const updateBugatchi = `mutation UpdateBugatchi($input: UpdateBugatchiInput!) {
+  updateBugatchi(input: $input) {
     product_id
-    sku_number
+    category
+    subcategory
+    description
+    manufacturer_part_number
     name
-    product_url
     pixel
-    sale_price
-    retail_price
-    long_description
+    product_url
     productimage_url
-    primary_category
-    secondary_category
-    shipping_availability
-    shipping_information
+    retail_price
+    sale_price
+    shipping_info
+    sku_number
     upc
-    manufacturer
   }
 }
 `;
-export const deleteBugachi = `mutation DeleteBugachi($input: DeleteBugachiInput!) {
-  deleteBugachi(input: $input) {
+export const deleteBugatchi = `mutation DeleteBugatchi($input: DeleteBugatchiInput!) {
+  deleteBugatchi(input: $input) {
     product_id
-    sku_number
+    category
+    subcategory
+    description
+    manufacturer_part_number
     name
-    product_url
     pixel
-    sale_price
-    retail_price
-    long_description
+    product_url
     productimage_url
-    primary_category
-    secondary_category
-    shipping_availability
-    shipping_information
+    retail_price
+    sale_price
+    shipping_info
+    sku_number
     upc
-    manufacturer
+  }
+}
+`;
+export const createSubcategories = `mutation CreateSubcategories($input: CreateSubcategoriesInput!) {
+  createSubcategories(input: $input) {
+    category
+    subcategory
+  }
+}
+`;
+export const updateSubcategories = `mutation UpdateSubcategories($input: UpdateSubcategoriesInput!) {
+  updateSubcategories(input: $input) {
+    category
+    subcategory
+  }
+}
+`;
+export const deleteSubcategories = `mutation DeleteSubcategories($input: DeleteSubcategoriesInput!) {
+  deleteSubcategories(input: $input) {
+    category
+    subcategory
   }
 }
 `;
 export const createCategories = `mutation CreateCategories($input: CreateCategoriesInput!) {
   createCategories(input: $input) {
-    id
-    category
-    subcategories
+    categories
   }
 }
 `;
 export const updateCategories = `mutation UpdateCategories($input: UpdateCategoriesInput!) {
   updateCategories(input: $input) {
-    id
-    category
-    subcategories
+    categories
   }
 }
 `;
 export const deleteCategories = `mutation DeleteCategories($input: DeleteCategoriesInput!) {
   deleteCategories(input: $input) {
-    id
-    category
-    subcategories
+    categories
   }
 }
 `;
